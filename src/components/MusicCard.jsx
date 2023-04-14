@@ -12,7 +12,24 @@ class MusicCard extends Component {
 
   componentDidMount() {
     this.fecthRequisitionFavorites();
+    // this.verifyFavorites();
   }
+
+  // componentDidUpdate() {
+  //   this.fecthRequisitionFavorites();
+  // }
+
+  // verifyFavorites = async () => {
+  //   const { salveFavoriteSongs, albumMusic } = this.props;
+  //   const { trackId } = albumMusic;
+  //   const resultFavorites = await salveFavoriteSongs;
+  //   console.log(resultFavorites);
+  //   const test = resultFavorites.some((songs) => songs.trackId === trackId);
+  //   console.log(test);
+  //   this.setState({
+  //     inputFavorite: test,
+  //   });
+  // };
 
   onInputChange = ({ target: { name, value, type, checked } }) => {
     const value2 = type === 'checkbox' ? checked : value;
@@ -54,7 +71,6 @@ class MusicCard extends Component {
               id="inputFavorite"
               name="inputFavorite"
               test={ `checkbox-music-${trackId}` }
-              // disabled={ inputFavorite }
               onChange={ this.onInputChange }
               onClick={ () => this.fecthRequisitionFavorites(albumMusic) }
             />
@@ -68,9 +84,15 @@ class MusicCard extends Component {
 
 MusicCard.propTypes = {
   albumMusic: PropTypes.shape({
-    trackName: PropTypes.string.isRequired,
     previewUrl: PropTypes.string.isRequired,
     trackId: PropTypes.number.isRequired,
+    trackName: PropTypes.string.isRequired,
+    salveFavoriteSongs: PropTypes.shape(
+      PropTypes.shape({
+        [PropTypes.string]: PropTypes.string,
+      }),
+    ),
   }).isRequired,
 };
+
 export default MusicCard;

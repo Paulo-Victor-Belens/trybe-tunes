@@ -3,16 +3,24 @@ import React, { Component } from 'react';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   state = {
     objectMusic: '',
     music: [],
+    salveFavoriteSongs: '',
   };
 
   componentDidMount() {
     this.fetchRequisitionMusicAPI();
+    this.fetchRequisitionFavoritesSongs();
   }
+
+  fetchRequisitionFavoritesSongs = async () => {
+    const resultFavoriteSongs = await getFavoriteSongs();
+    this.setState({ salveFavoriteSongs: resultFavoriteSongs });
+  };
 
   fetchRequisitionMusicAPI = async () => {
     const { match: { params: { id } } } = this.props;
@@ -28,7 +36,8 @@ class Album extends Component {
   };
 
   render() {
-    const { objectMusic, music } = this.state;
+    const { objectMusic, music, salveFavoriteSongs } = this.state;
+    const verifyFavoriteLength = salveFavoriteSongs.length > 0;
     const verifyLength = objectMusic.length > 0;
     return (
       <div data-testid="page-album">
@@ -42,6 +51,7 @@ class Album extends Component {
             <MusicCard
               key={ index }
               albumMusic={ albumMusic }
+              salveFavoriteSongs={ verifyFavoriteLength && salveFavoriteSongs }
             />
           ))}
         </section>

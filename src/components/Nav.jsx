@@ -62,7 +62,6 @@ Nav.propTypes = {
   verifyInputSearch: PropTypes.bool.isRequired,
   inputName: PropTypes.string.isRequired,
   inputSearch: PropTypes.string.isRequired,
-  // isLoading: PropTypes.bool.isRequired,
 };
 
 export default Nav;
