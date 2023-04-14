@@ -29,8 +29,12 @@ class App extends React.Component {
     }
   };
 
+  clearInputs = () => {
+    this.setState({ inputSearch: '' });
+  };
+
   render() {
-    const { inputName, verifyInputName, verifyInputSearch } = this.state;
+    const { inputName, verifyInputName, verifyInputSearch, inputSearch } = this.state;
     return (
       <main>
         <p>TrybeTunes</p>
@@ -38,7 +42,9 @@ class App extends React.Component {
           inputName={ inputName }
           verifyInputName={ verifyInputName }
           verifyInputSearch={ verifyInputSearch }
+          inputSearch={ inputSearch }
           handlerChange={ this.handlerChange }
+          clearInputs={ this.clearInputs }
         />
       </main>
     );

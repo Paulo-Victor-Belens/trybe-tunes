@@ -11,7 +11,14 @@ import Login from './Login';
 
 class Nav extends Component {
   render() {
-    const { handlerChange, verifyInputName, inputName, verifyInputSearch } = this.props;
+    const {
+      handlerChange,
+      verifyInputName,
+      inputName,
+      verifyInputSearch,
+      clearInputs,
+      inputSearch,
+    } = this.props;
     return (
       <div>
 
@@ -22,6 +29,8 @@ class Nav extends Component {
             render={ () => (<Search
               handlerChange={ handlerChange }
               verifyInputSearch={ verifyInputSearch }
+              inputSearch={ inputSearch }
+              clearInputs={ clearInputs }
             />) }
           />
           <Route exact path="/album/:id" component={ Album } />
@@ -48,9 +57,11 @@ class Nav extends Component {
 
 Nav.propTypes = {
   handlerChange: PropTypes.func.isRequired,
+  clearInputs: PropTypes.func.isRequired,
   verifyInputName: PropTypes.bool.isRequired,
   verifyInputSearch: PropTypes.bool.isRequired,
   inputName: PropTypes.string.isRequired,
+  inputSearch: PropTypes.string.isRequired,
   // isLoading: PropTypes.bool.isRequired,
 };
 
