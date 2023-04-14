@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
-import Loading from '../components/Loading';
+// import Loading from '../components/Loading';
 import CardsAlbuns from '../components/CardsAlbuns';
 
 class Search extends Component {
@@ -17,17 +17,6 @@ class Search extends Component {
   componentDidMount() {
     this.fetchAlbumAPIRequisition();
   }
-
-  // shouldComponentUpdate() {
-  //   const { responseAPI } = this.state;
-  //   if (responseAPI.length > 0) {
-  //     this.setState({ responseAPI: [] });
-  //     this.fetchAlbumAPIRequisition();
-  //     return true;
-  //   }
-  //   return false;
-
-  // }
 
   fetchAlbumAPIRequisition = async () => {
     const { inputSearch, clearInputs } = this.props;
@@ -57,7 +46,7 @@ class Search extends Component {
     return (
       <div data-testid="page-search">
         <Header />
-        {isLoading ? <Loading /> : (
+        {isLoading ? <p>Loading...</p> : (
           <fieldset>
             <legend>Pesquisar Artista</legend>
 
