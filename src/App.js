@@ -5,7 +5,8 @@ class App extends React.Component {
   state = {
     inputName: '',
     verifyInputName: true,
-    // isLoading: true,
+    verifyInputSearch: true,
+    inputSearch: '',
   };
 
   handlerChange = ({ target: { name, value } }) => {
@@ -13,25 +14,31 @@ class App extends React.Component {
   };
 
   verifyInputs = () => {
-    const { inputName } = this.state;
+    const { inputName, inputSearch } = this.state;
     const minLengthInputName = 3;
+    const minLengthInputSearch = 2;
     if (inputName.length >= minLengthInputName) {
       this.setState({ verifyInputName: false });
     } else {
       this.setState({ verifyInputName: true });
     }
+    if (inputSearch.length >= minLengthInputSearch) {
+      this.setState({ verifyInputSearch: false });
+    } else {
+      this.setState({ verifyInputSearch: true });
+    }
   };
 
   render() {
-    const { inputName, verifyInputName } = this.state;
+    const { inputName, verifyInputName, verifyInputSearch } = this.state;
     return (
       <main>
         <p>TrybeTunes</p>
         <Nav
           inputName={ inputName }
           verifyInputName={ verifyInputName }
+          verifyInputSearch={ verifyInputSearch }
           handlerChange={ this.handlerChange }
-          // isLoading={ isLoading }
         />
       </main>
     );

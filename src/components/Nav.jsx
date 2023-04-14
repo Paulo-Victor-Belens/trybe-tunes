@@ -11,12 +11,19 @@ import Login from './Login';
 
 class Nav extends Component {
   render() {
-    const { handlerChange, verifyInputName, inputName } = this.props;
+    const { handlerChange, verifyInputName, inputName, verifyInputSearch } = this.props;
     return (
       <div>
 
         <Switch>
-          <Route exact path="/search" component={ Search } />
+          <Route
+            exact
+            path="/search"
+            render={ () => (<Search
+              handlerChange={ handlerChange }
+              verifyInputSearch={ verifyInputSearch }
+            />) }
+          />
           <Route exact path="/album/:id" component={ Album } />
           <Route exact path="/favorites" component={ Favorites } />
           <Route exact path="/profile" component={ Profile } />
@@ -41,7 +48,8 @@ class Nav extends Component {
 
 Nav.propTypes = {
   handlerChange: PropTypes.func.isRequired,
-  verifyInputName: PropTypes.string.isRequired,
+  verifyInputName: PropTypes.bool.isRequired,
+  verifyInputSearch: PropTypes.bool.isRequired,
   inputName: PropTypes.string.isRequired,
   // isLoading: PropTypes.bool.isRequired,
 };
