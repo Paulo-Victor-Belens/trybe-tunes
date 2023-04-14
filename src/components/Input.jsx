@@ -14,6 +14,7 @@ class Input extends Component {
       checked,
       disabled,
       className,
+      onClick,
     } = this.props;
     return (
 
@@ -28,6 +29,7 @@ class Input extends Component {
         data-testid={ test }
         disabled={ disabled }
         className={ className }
+        onClick={ onClick }
       />
     );
   }
@@ -44,6 +46,7 @@ Input.propTypes = {
   className: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
+  onClick: PropTypes.bool.isRequired,
 };
 
 export default Input;

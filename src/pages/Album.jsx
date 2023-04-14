@@ -17,7 +17,6 @@ class Album extends Component {
   fetchRequisitionMusicAPI = async () => {
     const { match: { params: { id } } } = this.props;
     const responseApi = await getMusics(id);
-    console.log(responseApi);
     const arraymusic = [];
     for (let i = 1; i < responseApi.length; i += 1) {
       arraymusic.push(responseApi[i]);
