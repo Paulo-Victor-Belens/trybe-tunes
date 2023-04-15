@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Input from './Input';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class MusicCard extends Component {
@@ -11,24 +11,22 @@ class MusicCard extends Component {
     // salveFavoriteSongs: [],
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.favoritesResults();
+  }
+
+  favoritesResults = async () => {
     const favoriteSongs = await this.fetchRequisitionFavoritesSongs();
     this.verifyFavorites(favoriteSongs);
     this.setState({ isLoading: false });
-  }
+  };
 
   fetchRequisitionFavoritesSongs = async () => {
     const resultFavoriteSongs = await getFavoriteSongs();
-    // this.setState({ salveFavoriteSongs: resultFavoriteSongs });
     return resultFavoriteSongs;
   };
 
-  // componentDidUpdate() {
-  //   this.fecthRequisitionFavorites();
-  // }
-
   verifyFavorites = (salveFavoriteSongs) => {
-    // const { salveFavoriteSongs } = this.state;
     const { albumMusic } = this.props;
     const { trackId } = albumMusic;
     const isFavorite = salveFavoriteSongs
@@ -49,13 +47,30 @@ class MusicCard extends Component {
     this.fecthRequisitionFavorites(albumMusic);
   };
 
+  // fetchRequisitionRemoveFavoritesSongs = async () => {
+  //   const favoriteSongs = await this.fetchRequisitionFavoritesSongs();
+  //   favoriteSongs.some((song) => )
+  //   }
+  // };
+
   fecthRequisitionFavorites = async (albumMusic) => {
-    this.setState({ isLoading: true });
-
-    await addSong(albumMusic);
-
     this.setState({
-      isLoading: false });
+      isLoading: true,
+    });
+    const { isFavorite } = this.state;
+    if (isFavorite) {
+      await removeSong(albumMusic);
+      const favoriteSongs = await this.fetchRequisitionFavoritesSongs();
+      this.verifyFavorites(favoriteSongs);
+    } else {
+      await addSong(albumMusic);
+      const favoriteSongs = await this.fetchRequisitionFavoritesSongs();
+      this.verifyFavorites(favoriteSongs);
+    }
+    this.setState((previus) => ({
+      isLoading: false,
+      isFavorite: previus.isFavorite,
+    }));
   };
 
   render() {
