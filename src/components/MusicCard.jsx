@@ -1,43 +1,52 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Input from './Input';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class MusicCard extends Component {
   state = {
-    isLoading: false,
-    inputFavorite: false,
+    isLoading: true,
+    isFavorite: false,
+    // salveFavoriteSongs: [],
   };
 
-  componentDidMount() {
-    this.fecthRequisitionFavorites();
-    // this.verifyFavorites();
+  async componentDidMount() {
+    const favoriteSongs = await this.fetchRequisitionFavoritesSongs();
+    this.verifyFavorites(favoriteSongs);
+    this.setState({ isLoading: false });
   }
+
+  fetchRequisitionFavoritesSongs = async () => {
+    const resultFavoriteSongs = await getFavoriteSongs();
+    // this.setState({ salveFavoriteSongs: resultFavoriteSongs });
+    return resultFavoriteSongs;
+  };
 
   // componentDidUpdate() {
   //   this.fecthRequisitionFavorites();
   // }
 
-  // verifyFavorites = async () => {
-  //   const { salveFavoriteSongs, albumMusic } = this.props;
-  //   const { trackId } = albumMusic;
-  //   const resultFavorites = await salveFavoriteSongs;
-  //   console.log(resultFavorites);
-  //   const test = resultFavorites.some((songs) => songs.trackId === trackId);
-  //   console.log(test);
-  //   this.setState({
-  //     inputFavorite: test,
-  //   });
-  // };
+  verifyFavorites = (salveFavoriteSongs) => {
+    // const { salveFavoriteSongs } = this.state;
+    const { albumMusic } = this.props;
+    const { trackId } = albumMusic;
+    const isFavorite = salveFavoriteSongs
+      .some((songs) => songs.trackId === trackId);
+    this.setState({
+      isFavorite,
+    });
+  };
 
   onInputChange = ({ target: { name, value, type, checked } }) => {
+    const { albumMusic } = this.props;
     const value2 = type === 'checkbox' ? checked : value;
     this.setState(
       {
         [name]: value2,
       },
     );
+    this.fecthRequisitionFavorites(albumMusic);
   };
 
   fecthRequisitionFavorites = async (albumMusic) => {
@@ -52,7 +61,7 @@ class MusicCard extends Component {
   render() {
     const { albumMusic } = this.props;
     const { previewUrl, trackName, trackId } = albumMusic;
-    const { isLoading, inputFavorite } = this.state;
+    const { isLoading, isFavorite } = this.state;
 
     return (
       <div>
@@ -63,16 +72,16 @@ class MusicCard extends Component {
           <code>audio</code>
         </audio>
         {isLoading ? <Loading /> : (
-          <label htmlFor="inputFavorite">
+          <label htmlFor={ trackId }>
             Favorita
             <Input
               type="checkbox"
-              checked={ inputFavorite }
-              id="inputFavorite"
-              name="inputFavorite"
+              checked={ isFavorite }
+              id={ trackId }
+              name="isFavorite"
               test={ `checkbox-music-${trackId}` }
               onChange={ this.onInputChange }
-              onClick={ () => this.fecthRequisitionFavorites(albumMusic) }
+              // onClick={ () =>  }
             />
           </label>
         )}
@@ -87,11 +96,6 @@ MusicCard.propTypes = {
     previewUrl: PropTypes.string.isRequired,
     trackId: PropTypes.number.isRequired,
     trackName: PropTypes.string.isRequired,
-    salveFavoriteSongs: PropTypes.shape(
-      PropTypes.shape({
-        [PropTypes.string]: PropTypes.string,
-      }),
-    ),
   }).isRequired,
 };
 
