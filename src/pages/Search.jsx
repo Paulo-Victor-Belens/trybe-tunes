@@ -86,7 +86,6 @@ class Search extends Component {
                     <CardsAlbuns album={ album } />
                   </Link>
                 ))}
-
               </div>
             </section>
           )}

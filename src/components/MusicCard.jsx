@@ -26,6 +26,12 @@ class MusicCard extends Component {
     return resultFavoriteSongs;
   };
 
+  // resultFavorites = () => {
+  //   const favoriteSongs = this.fetchRequisitionFavoritesSongs();
+  //   const { getStatesOfFavorites } = this.props;
+  //   console.log(getStatesOfFavorites(favoriteSongs));
+  // };
+
   verifyFavorites = (salveFavoriteSongs) => {
     const { albumMusic } = this.props;
     const { trackId } = albumMusic;
@@ -46,12 +52,6 @@ class MusicCard extends Component {
     );
     this.fecthRequisitionFavorites(albumMusic);
   };
-
-  // fetchRequisitionRemoveFavoritesSongs = async () => {
-  //   const favoriteSongs = await this.fetchRequisitionFavoritesSongs();
-  //   favoriteSongs.some((song) => )
-  //   }
-  // };
 
   fecthRequisitionFavorites = async (albumMusic) => {
     this.setState({
@@ -107,6 +107,7 @@ class MusicCard extends Component {
 }
 
 MusicCard.propTypes = {
+  // getStatesOfFavorites: PropTypes.func.isRequired,
   albumMusic: PropTypes.shape({
     previewUrl: PropTypes.string.isRequired,
     trackId: PropTypes.number.isRequired,
