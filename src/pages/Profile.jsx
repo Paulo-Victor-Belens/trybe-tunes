@@ -16,7 +16,6 @@ class Profile extends Component {
 
   requestGetUser = async () => {
     const user = await getUser();
-    console.log(user);
     this.setState({ user, isLoading: false });
   };
 
@@ -29,14 +28,14 @@ class Profile extends Component {
           <div>
             <section>
               <div>
+                <Link to="/profile/edit">Editar perfil</Link>
+              </div>
+              <div>
                 <img
                   src={ user.image }
                   alt="imagem do usuário"
                   data-testid="profile-image"
                 />
-              </div>
-              <div>
-                <Link to="/profile/edit">Editar perfil</Link>
               </div>
             </section>
             <p>{user.name}</p>

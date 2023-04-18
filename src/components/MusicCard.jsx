@@ -26,12 +26,6 @@ class MusicCard extends Component {
     return resultFavoriteSongs;
   };
 
-  // resultFavorites = () => {
-  //   const favoriteSongs = this.fetchRequisitionFavoritesSongs();
-  //   const { getStatesOfFavorites } = this.props;
-  //   console.log(getStatesOfFavorites(favoriteSongs));
-  // };
-
   verifyFavorites = (salveFavoriteSongs) => {
     const { albumMusic } = this.props;
     const { trackId } = albumMusic;
@@ -58,15 +52,20 @@ class MusicCard extends Component {
       isLoading: true,
     });
     const { isFavorite } = this.state;
+    const { getStatesOfFavorites } = this.props;
     if (isFavorite) {
       await removeSong(albumMusic);
       const favoriteSongs = await this.fetchRequisitionFavoritesSongs();
       this.verifyFavorites(favoriteSongs);
-    } else {
+      this.setState({ isFavorite: false, isLoading: false });
+      await getStatesOfFavorites(albumMusic.trackId);
+    }
+    if (!isFavorite) {
       await addSong(albumMusic);
       const favoriteSongs = await this.fetchRequisitionFavoritesSongs();
       this.verifyFavorites(favoriteSongs);
     }
+
     this.setState((previus) => ({
       isLoading: false,
       isFavorite: previus.isFavorite,
@@ -77,7 +76,6 @@ class MusicCard extends Component {
     const { albumMusic } = this.props;
     const { previewUrl, trackName, trackId } = albumMusic;
     const { isLoading, isFavorite } = this.state;
-
     return (
       <div>
         <p>{ trackName }</p>
@@ -107,7 +105,7 @@ class MusicCard extends Component {
 }
 
 MusicCard.propTypes = {
-  // getStatesOfFavorites: PropTypes.func.isRequired,
+  getStatesOfFavorites: PropTypes.func.isRequired,
   albumMusic: PropTypes.shape({
     previewUrl: PropTypes.string.isRequired,
     trackId: PropTypes.number.isRequired,

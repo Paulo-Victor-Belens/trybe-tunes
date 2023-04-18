@@ -15,46 +15,15 @@ class Favorites extends Component {
     this.fetchRequisitionFavoritesSongs();
   }
 
-  // componentDidUpdate() {
-  //   this.fecthRequisitionFavorites();
-  // }
-
-  // getStatesOfFavorites = async (favoritesStates) => {
-  //   const favorites = await favoritesStates;
-  //   console.log(favorites);
-  //   return favorites;
-  // };
-
-  // favoritesResults = async () => {
-  //   const favoriteSongs = await this.fetchRequisitionFavoritesSongs();
-  //   console.log(favoriteSongs);
-  //   this.fecthRequisitionFavorites(favoriteSongs);
-  //   this.setState({ isLoading: false });
-  // };
-
-  // verifyFavorites = (salveFavoriteSongs) => {
-  //   const isFavorite = salveFavoriteSongs
-  //     .some((songs) => songs.trackId === trackId);
-  //   this.setState({
-  //     isFavorite,
-  //   });
-  // };
-
-  // fecthRequisitionFavorites = async (albumMusic) => {
-  //   this.setState({
-  //     isLoading: true,
-  //   });
-  //   const { isFavorite2 } = this.state;
-  //   if (isFavorite2) {
-  //     await removeSong(albumMusic);
-  //     const favoriteSongs = await this.fetchRequisitionFavoritesSongs();
-  //     this.verifyFavorites(favoriteSongs);
-  //   }
-  //   this.setState((previus) => ({
-  //     isLoading: false,
-  //     isFavorite2: previus.isFavorite,
-  //   }));
-  // };
+  getStatesOfFavorites = async (id) => {
+    this.setState((prevState) => {
+      const updatedFavoritesSongs = prevState.favoriteSongs
+        .filter(({ trackId }) => trackId !== id);
+      return {
+        favoriteSongs: updatedFavoritesSongs,
+      };
+    });
+  };
 
   fetchRequisitionFavoritesSongs = async () => {
     const resultFavoriteSongs = await getFavoriteSongs();
@@ -73,7 +42,7 @@ class Favorites extends Component {
               key={ index }
               albumMusic={ song }
               isFavorite2={ isFavorite2 }
-              // getStatesOfFavorites={ this.getStatesOfFavorites }
+              getStatesOfFavorites={ this.getStatesOfFavorites }
             />
           ))}
         </div>

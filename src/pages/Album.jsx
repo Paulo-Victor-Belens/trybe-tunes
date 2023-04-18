@@ -8,6 +8,7 @@ class Album extends Component {
   state = {
     objectMusic: '',
     music: [],
+    favoriteSongs: [],
   };
 
   componentDidMount() {
@@ -27,6 +28,16 @@ class Album extends Component {
     });
   };
 
+  getStatesOfFavorites = async (id) => {
+    this.setState((prevState) => {
+      const updatedFavoritesSongs = prevState.favoriteSongs
+        .filter(({ trackId }) => trackId !== id);
+      return {
+        favoriteSongs: updatedFavoritesSongs,
+      };
+    });
+  };
+
   render() {
     const { objectMusic, music } = this.state;
     const verifyLength = objectMusic.length > 0;
@@ -42,6 +53,7 @@ class Album extends Component {
             <MusicCard
               key={ index }
               albumMusic={ albumMusic }
+              getStatesOfFavorites={ this.getStatesOfFavorites }
             />
           ))}
         </section>
