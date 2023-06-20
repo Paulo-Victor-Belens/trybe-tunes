@@ -26,33 +26,37 @@ class Login extends Component {
     const { isLoading } = this.state;
 
     return (
-      <div data-testid="page-login">
+      <section className="container__login">
         {
           isLoading
             ? <Loading />
             : (
-              <fieldset>
-                <legend>Login</legend>
-                <Input
-                  type="text"
-                  name="inputName"
-                  test="login-name-input"
-                  id="name"
-                  onChange={ handlerChange }
-                />
-                <button
-                  type="button"
-                  data-testid="login-submit-button"
-                  disabled={ verifyInputName }
-                  onClick={ this.actionsButton }
-                >
-                  Entrar
-                </button>
-              </fieldset>
+              <form className="form__login">
+                <div className="container__image__login"></div>
+                <div>
+                  <Input
+                    type="text"
+                    name="inputName"
+                    test="login-name-input"
+                    id="name"
+                    onChange={ handlerChange }
+                  />
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    data-testid="login-submit-button"
+                    disabled={ verifyInputName }
+                    onClick={ this.actionsButton }
+                  >
+                    Entrar
+                  </button>
+                </div>
+              </form>
             )
         }
 
-      </div>
+      </section>
     );
   }
 }

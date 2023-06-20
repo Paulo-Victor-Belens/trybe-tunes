@@ -1,5 +1,6 @@
 import React from 'react';
 import Nav from './components/Nav';
+import './css/login.css';
 
 class App extends React.Component {
   state = {
@@ -36,16 +37,20 @@ class App extends React.Component {
   render() {
     const { inputName, verifyInputName, verifyInputSearch, inputSearch } = this.state;
     return (
-      <main>
-        <p>TrybeTunes</p>
-        <Nav
-          inputName={ inputName }
-          verifyInputName={ verifyInputName }
-          verifyInputSearch={ verifyInputSearch }
-          inputSearch={ inputSearch }
-          handlerChange={ this.handlerChange }
-          clearInputs={ this.clearInputs }
-        />
+      <main className="flex-container">
+        <div>
+          <h1 className="container__title">TrybeTunes</h1>
+        </div>
+        <section>
+          <Nav
+            inputName={ inputName }
+            verifyInputName={ verifyInputName }
+            verifyInputSearch={ verifyInputSearch }
+            inputSearch={ inputSearch }
+            handlerChange={ this.handlerChange }
+            clearInputs={ this.clearInputs }
+          />
+        </section>
       </main>
     );
   }

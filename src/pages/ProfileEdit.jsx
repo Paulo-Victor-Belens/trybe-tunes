@@ -17,7 +17,6 @@ class Edit extends Component {
 
   componentDidMount() {
     this.editionProfile();
-    this.verifyInputs();
   }
 
   editionProfile = async () => {

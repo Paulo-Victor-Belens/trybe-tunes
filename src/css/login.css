@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../images/images-styles-css/background-login.svg");
+  background-size: cover;
+}
+
+.container__login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 350px;
+  height: 350px;
+}
+
+.form__login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 550px;
+  background-color: black;
+  border-radius: 15px;
+  position: relative;
+}
+
+.container__image__login {
+  color: azure;
+  background-image: url("../images/images-styles-css/11.svg");
+  background-size: 300%;
+  background-position: 50% 42%;
+  width: 115px;
+  height: 115px;
+  top: -50px;
+  position: absolute;
+}
+
+.container__images__login {
+  border: 1px solid red;
+  position: relative;
+  padding: 100px 500px;
+}
+
+.container__title {
+  color: aqua;
+}
+
+#img__login__01 {
+  width: 550px;
+  position: absolute;
+  top: 30px;
+  left: -190px;
+}
+
+#img__login__02 {
+  width: 550px;
+  position: absolute;
+  top: 50px;
+  left: 100px;
+}
+
+#img__login__03 {
+  width: 550px;
+  position: absolute;
+  top: 30px;
+  left: 400px;
+}
+
+#img__login__04 {
+  width: 550px;
+  position: absolute;
+  top: 50px;
+  left: 700px;
+}
+
+#img__login__05 {
+  width: 550px;
+  position: absolute;
+  top: 30px;
+  left: 1000px;
+}
+
+#img__login__06 {
+  width: 550px;
+  position: absolute;
+  top: 50px;
+  left: 1300px;
+}
